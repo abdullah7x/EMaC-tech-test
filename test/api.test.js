@@ -53,6 +53,10 @@ describe('GET /api/recipes:id', () => {
       ],
     });
   });
+  test("404: returns not found if recipe with that id doesn't exist", async () => {
+    const { body } = await request.get('/api/recipes/recipe-6000').expect(404);
+    expect(body.message).toBe('Sorry, a recipe with that ID does not exist');
+  });
 });
 
 describe('Default error handling', () => {

@@ -14,7 +14,13 @@ const fetchRecipes = async (exclude_ingredients) => {
 
 const fetchRecipe = async (id) => {
   const recipes = await fetchRecipes();
-  return recipes.filter((recipe) => recipe.id === id)[0];
+  const recipe = recipes.filter((recipe) => recipe.id === id);
+  return recipe.length
+    ? recipe[0]
+    : Promise.reject({
+        status: 404,
+        message: 'Sorry, a recipe with that ID does not exist',
+      });
 };
 
 module.exports = { fetchRecipes, fetchRecipe };
